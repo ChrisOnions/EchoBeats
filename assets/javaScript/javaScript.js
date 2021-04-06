@@ -46,7 +46,7 @@ function tokenHandler(authCode) {
 // Take input from search 		  box, checkbox, length.
 searchButton.addEventListener('click', function (e) {
   e.preventDefault();
-  criteria = inputs.innerText;
+  criteria = inputs.value;
   if (authCode = "") {
     alert("Please log in")
   }

@@ -6,8 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <!-- Link to font-awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 
   <link href="./assets/css/style.css" rel="stylesheet">
 </head>
@@ -15,39 +13,36 @@
 <body>
 
   <header>
-    <div class="headerContainer">
+    <div id="headerContainer">
       <div>
-        <h1 class="appTitle">
-          <!-- Spotify Icon appended to the app title  -->
-          <i class="fab fa-spotify"></i> Super Awesome Dev Team
-        </h1>
+
       </div>
 
       <div>
-        <h2>Login In</h2>
+        <h1 class="headerTextDisplay">Login In</h1>
       </div>
     </div>
   </header>
 
   <main>
-    <div class="mainContainer">
+    <div id="mainContainer">
       <div class="searchCard">
-        <div class="instructions">
-          Search an artist, song or genre that you like to generate a playlist of similar songs through a Spotify API.
-          You can define how long you would like the playlist to be. The user will also be presented with the links to
-          the socials of the artists that are on the newly generated playlist.
+        <div class="instructionsText">
+          <h3>Search by artist, song or genre to generate a playlist of similar songs. Use the range selector to define
+            how long you would like the playlist to be. Alternatively, press the
+            "Random" button to generate a random playlist.</h3>
         </div>
 
         <form>
           <div class="searchBoxContainer">
-            <input type="text" name="userInput" placeholder="Search by Artist, Genre or Song">
-            <input type="range" min="5" max="10" value="8" id="playlistLength">
+            <input id="searchBarInput" type="text" name="userInput" placeholder="Search by Artist, Genre or Song">
+            <label for="playlistLengthNumber" id="playlistLengthLabel">Playlist Length (number of songs):</label>
+            <input type="range" min="5" max="10" value="8" id="playlistLengthRange">
+            <input type="number" min="5" max="10" value="8" id="playlistLengthNumber">
           </div>
-          <button type="submit">Search</button>
-          <button type="submit">Random</button>
+          <button class="buttonDisplay" type="submit">Search</button>
+          <button class="buttonDisplay" type="submit">Random</button>
         </form>
-
-        <p>random test</p>
 
       </div>
     </div>
@@ -56,6 +51,7 @@
 
   <footer>
     Footer - content to be added
+    <a href="./assets/Index folder/Index_1.html">!</a>
   </footer>
   <script src="./assets/javaScript/javaScript.js"></script>
 </body>

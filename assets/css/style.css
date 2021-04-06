@@ -1,4 +1,95 @@
+/* *{border: solid 1px black;} */
+:root {
+    --offBlack: #18020cff;
+    --darkBlue: #005377ff;
+    --lightBlue: #00a7e1ff;
+    --grassGreen: #06a77dff;
+    --cultured: #f4f2f3ff;
+}
+
 html, body {
     /* removing the userstylesheet margin */
     margin: 0;
+}
+
+#headerContainer{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--darkBlue);
+}
+
+.headerTextDisplay {
+color: var(--cultured);
+margin: 30px 30px;
+} 
+#mainContainer{
+margin: 2% 20%;
+}
+.searchCard{
+    margin: 1%;
+}
+.instructionsText{
+    text-align: center;
+    font-size: 1.5em;
+    padding:  10px;
+}
+.searchBoxContainer{
+    border: solid 2px var(--darkBlue);
+    display: flex;
+    flex-direction: column;
+    padding: 50px 20px;
+}
+#searchBarInput{
+    font-size: 2em;
+}
+.buttonDisplay{
+    display: block;
+    flex-direction: row;
+    color: var(--cultured);
+    background-color: var(--darkBlue);
+    min-width: 100%;
+    text-align: center;
+    padding: 10px;
+    margin: 15px auto;
+    font-size: 1.5em;
+    
+}
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color:var(--darkBlue);
+    color: var(--cultured);
+    text-align: center;
+}
+@media screen and (max-width: 1200px ) {
+    h3, #searchBarInput, .headerTextDisplay, #playlistLengthLabel, #playlistLengthNumber{
+        font-size: 1em;
+}
+#mainContainer{
+    margin: 20px;
+}
+.searchBoxContainer{
+    padding: 35px 20px;
+}
+@media screen and (max-width: 1024px ) {
+    h3, #searchBarInput, #playlistLengthLabel, .buttonDisplay{
+        font-size: .7em;
+    }
+}
+@media screen and (max-width: 768px ) {
+    h3, #searchBarInput, #playlistLengthLabel, .buttonDisplay,#playlistLengthNumber{
+        font-size: .6em;
+    }
+}
+@media screen and (max-width: 480px ) {
+    h3, #searchBarInput, #playlistLengthLabel,footer {
+        font-size: .5em;
+    }
+    .buttonDisplay{
+        padding: 5px; 
+        margin: 10px auto;
+    }
+}
 }

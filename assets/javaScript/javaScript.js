@@ -7,6 +7,10 @@ const authorise = "https://accounts.spotify.com/authorize"
 const tokenHandlerUrl = "https://accounts.spotify.com/api/token"
 var url = ""
 var authCode = ""
+var searchButton = document.querySelector(".buttonDisplay");
+var inputs = document.querySelector("#searchBarInput");
+var criteria = "";
+
 
 function requestAccessToUserData() {
   url = authorise;
@@ -40,6 +44,26 @@ function tokenHandler(authCode) {
 
 // SEARCH BOX LISTENER:
 // Take input from search 		  box, checkbox, length.
+searchButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  criteria = inputs.innerText;
+  if (authCode = "") {
+    alert("Please log in")
+  }
+  else {
+    console.log('listener active')
+    searchTracks();
+
+  }
+})
+
+
+function searchTracks() {
+  console.log("arrived at track search");
+}
+
+
+
 
 // RESULTS PAGE:
 
@@ -84,7 +108,7 @@ playlistLengthNumber.addEventListener('input', syncPlaylistLength);
 playlistLengthRange.addEventListener('input', syncPlaylistLength);
 
 function syncPlaylistLength(e) {
-    const value = e.target.value
-    playlistLengthNumber.value = value
-    playlistLengthRange.value = value
+  const value = e.target.value
+  playlistLengthNumber.value = value
+  playlistLengthRange.value = value
 }

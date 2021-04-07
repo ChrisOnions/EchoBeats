@@ -9,7 +9,7 @@ var url = ""
 var authCode = ""
 var searchButton = document.querySelector(".buttonDisplay");
 var inputs = document.querySelector("#searchBarInput");
-var criteria = "";
+var criteria = JSON.parse(window.localStorage.getItem('searchCriteria'));
 
 
 function requestAccessToUserData() {
@@ -19,19 +19,23 @@ function requestAccessToUserData() {
   url += "&redirect_uri=" + encodeURI(redirectUri);
   url += "&show_dialog=True";
   url += "&scope=playlist-modify-public user-modify-playback-state playlist-modify-private user-library-read playlist-read-collaborative "
+  window.location.href = url; // moved this step into this function to make it accessible outside of the login button 
 };
 
 loginButton.addEventListener("click", function (e) {
   e.preventDefault;
   requestAccessToUserData();
-  window.location.href = url;
+
+
 });
 
+// minor change to below code so that it stores the code and triggers at refresh page. 
 function getAndStoreUserCode() {
   var currentUrl = window.location.href;
-  var newurl = currentUrl.split("=");
-  authCode = newurl.shift();
+  var newUrl = currentUrl.split("=");
+  authCode = newUrl[1];
 }
+getAndStoreUserCode();
 
 function tokenHandler(authCode) {
   var authUrl = "grant_type=authorization_code";
@@ -43,23 +47,33 @@ function tokenHandler(authCode) {
 
 
 // SEARCH BOX LISTENER:
-// Take input from search 		  box, checkbox, length.
+// when searchbox is clicked, it will save the entered text to local storage (so that it is persistent across screens)
+// it will ask user to log in if they are not logged in
+// if a valid search is there it will go to the results page and carry the authcode with it
+// it then goes to search tracks function, which still isnt finished 
+
 searchButton.addEventListener('click', function (e) {
   e.preventDefault();
-  criteria = inputs.value;
-  if (authCode = "") {
-    alert("Please log in")
+  searchHandler();
+})
+
+function searchHandler() {
+  entry = JSON.stringify(inputs.value);
+  window.localStorage.setItem('searchCriteria', entry);
+  if (authCode == '') {
+    requestAccessToUserData();
+    return 'retry';
   }
   else {
     console.log('listener active')
+    window.location.replace("https://chrisonions.github.io/webdevawesometeam/results.html?code=" + authCode);
     searchTracks();
-
   }
-})
-
+}
 
 function searchTracks() {
   console.log("arrived at track search");
+  console.log(criteria);
 }
 
 

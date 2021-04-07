@@ -22,6 +22,11 @@ html, body {
 color: var(--cultured);
 margin: 30px 30px;
 } 
+
+#logo {
+    color: var(--grassGreen)
+}
+
 #mainContainer{
 margin: 2% 20%;
 }

@@ -45,7 +45,6 @@ function tokenHandler(authCode) {
   authUrl += "&client_secret=" + clientSecret;
 }
 
-
 // SEARCH BOX LISTENER:
 // when searchbox is clicked, it will save the entered text to local storage (so that it is persistent across screens)
 // it will ask user to log in if they are not logged in

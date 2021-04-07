@@ -19,12 +19,12 @@ function requestAccessToUserData() {
   url += "&redirect_uri=" + encodeURI(redirectUri);
   url += "&show_dialog=True";
   url += "&scope=playlist-modify-public user-modify-playback-state playlist-modify-private user-library-read playlist-read-collaborative "
-  window.location.href = url; // moved this step into this function to make it accessible outside of the login button 
+  return url;
 };
 
 loginButton.addEventListener("click", function (e) {
   e.preventDefault;
-  requestAccessToUserData();
+  window.location.href = requestAccessToUserData();
 
 
 });

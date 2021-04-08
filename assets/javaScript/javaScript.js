@@ -1,8 +1,11 @@
 var loginButton = document.getElementById("loginButton")
 
+// My live server url
 const redirectUri = "https://chrisonions.github.io/webdevawesometeam/"
-const clientID = "85942e5b4e564e30b232074bd5b1417d"
-const clientSecret = "7f12ed9c212649dfaa703852a28d551c"
+//  personal client ID 
+const clientID = "77c956b588454e6881d164de033aee0a"
+//  personal client secret 
+const clientSecret = "dfa342c53dc44bf5840b7743ba6ca04d"
 const authorise = "https://accounts.spotify.com/authorize"
 const tokenHandlerUrl = "https://accounts.spotify.com/api/token"
 var url = ""
@@ -10,11 +13,59 @@ var authCode = ""
 var searchButton = document.querySelector(".buttonDisplay");
 var inputs = document.querySelector("#searchBarInput");
 var criteria = '';
-var oAuthToken = JSON.parse(window.localStorage.getItem('oAuthToken'));
+// var oAuthToken = JSON.parse(window.localStorage.getItem('oAuthToken'));
 var track = document.querySelector("#track");
 var artist = document.querySelector("#artist");
 var plLength = Number(document.querySelector('#playlistLengthNumber').value);
 var recommendations = '';
+
+// var to target  the random cocktail btn 
+var fetchCocktailButton = document.getElementById('fetch-cocktail-button');
+
+// Random free API to use in addition to Spotify 
+// https://www.thecocktaildb.com/api/json/v1/1/random.php
+
+function getRandomCocktailApi() {
+  console.log("click")
+  var requestUrl = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+
+  fetch(requestUrl)
+    .then(function (response) {
+      console.log(response.jsa)
+      return response.json();
+    })
+    .then(function (data) {
+      for (var i = 0; i < data.drinks.length; i++) {
+        var cocktailName = document.createElement('h3');
+        var glass = document.createElement("p");
+        var instructions = document.createElement("p")
+
+        var item = data.drinks[i]
+
+        cocktailName.textContent = item.strDrink
+        glass.textContent = item.strGlass
+        instructions.textContent = item.strInstructions
+
+        var cocktailContainer = document.getElementById("cocktailContainer");
+        cocktailContainer.appendChild(cocktailName);
+        cocktailContainer.appendChild(glass);
+        cocktailContainer.appendChild(instructions);
+      }
+    });
+}
+
+/*
+var node = document.createElement("LI");                 // Create a <li> node
+var textnode = document.createTextNode("Water");         // Create a text node
+node.appendChild(textnode);                              // Append the text to <li>
+document.getElementById("myList").appendChild(node);     // Append <li> to <ul> with id="myList"
+*/
+
+
+
+// listener for the click on the get random cocktail btn 
+fetchCocktailButton.addEventListener('click', getRandomCocktailApi);
+
 
 function requestAccessToUserData() {
   url = authorise;

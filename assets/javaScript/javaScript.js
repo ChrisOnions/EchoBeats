@@ -1,10 +1,7 @@
 var loginButton = document.getElementById("loginButton")
 
-// My live server url
 const redirectUri = "https://chrisonions.github.io/webdevawesometeam/"
-//  personal client ID 
 const clientID = "77c956b588454e6881d164de033aee0a"
-//  personal client secret 
 const clientSecret = "dfa342c53dc44bf5840b7743ba6ca04d"
 const authorise = "https://accounts.spotify.com/authorize"
 const tokenHandlerUrl = "https://accounts.spotify.com/api/token"
@@ -13,6 +10,7 @@ var authCode = ""
 var searchButton = document.querySelector(".buttonDisplay");
 var inputs = document.querySelector("#searchBarInput");
 var criteria = '';
+// Commented out this bug to help run script for cocktail API
 // var oAuthToken = JSON.parse(window.localStorage.getItem('oAuthToken'));
 var track = document.querySelector("#track");
 var artist = document.querySelector("#artist");
@@ -22,7 +20,7 @@ var recommendations = '';
 // var to target  the random cocktail btn 
 var fetchCocktailButton = document.getElementById('fetch-cocktail-button');
 
-// Random free API to use in addition to Spotify 
+// Random free cocktail API url 
 // https://www.thecocktaildb.com/api/json/v1/1/random.php
 
 function getRandomCocktailApi() {
@@ -53,15 +51,6 @@ function getRandomCocktailApi() {
       }
     });
 }
-
-/*
-var node = document.createElement("LI");                 // Create a <li> node
-var textnode = document.createTextNode("Water");         // Create a text node
-node.appendChild(textnode);                              // Append the text to <li>
-document.getElementById("myList").appendChild(node);     // Append <li> to <ul> with id="myList"
-*/
-
-
 
 // listener for the click on the get random cocktail btn 
 fetchCocktailButton.addEventListener('click', getRandomCocktailApi);

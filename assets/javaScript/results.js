@@ -10,7 +10,18 @@ var authCode = ""
 var searchButton = document.querySelector(".buttonDisplay");
 var inputs = document.querySelector("#searchBarInput");
 var criteria = '';
-var oAuthToken = JSON.parse(window.localStorage.getItem('oAuthToken'));
+
+// var oAuthToken = JSON.parse(window.localStorage.getItem('oAuthToken'));
+function setAuth() {
+    try {
+        oAuthToken = JSON.parse(window.localStorage.getItem('oAuthToken'));;
+    }
+    catch (err) {
+        console.log('not premium or not logged in, but you can see coctails');
+        return err;
+    }
+}
+
 var track = document.querySelector("#track");
 var artist = document.querySelector("#artist");
 var plLength = Number(document.querySelector('#playlistLengthNumber').value);
@@ -41,85 +52,84 @@ function addListeners() {
 }
 
 function showResults() {
-    var playL = JSON.parse(localStorage.getItem('recommendations'))
-
-    for (let i = 0; i < playL.tracks.length; i++) {
-        let trackSample = playL.tracks[i].preview_url;
-
-        let trackN = document.createElement('div');
-        trackN.innerText = playL.tracks[i].name;
-        trackN.setAttribute('class', 'grid-item-playlist')
-
-        let artistN = document.createElement('div');
-        artistN.innerText = playL.tracks[i].artists[0].name;
-        artistN.setAttribute('class', 'grid-item-playlist')
-
-        let iframeSample = "<iframe style='width:120px;height:58px;' frameborder='0' src='" + trackSample + "'></iframe>"
-        let add2PLBtn = "<button type='button'><i class='fa fa-plus'></i>&nbsp;&nbsp;Add to playlist</button>"
-
-        let buttonsDiv = document.createElement('div');
-        if (playL.tracks[i].preview_url !== null) {
-            buttonsDiv.innerHTML += iframeSample;
-        } else {
-            buttonsDiv.innerText += 'Preview unvailable'
+    try {
+        var playL = JSON.parse(localStorage.getItem('recommendations'))
+        for (let i = 0; i < playL.tracks.length; i++) {
+            let trackSample = playL.tracks[i].preview_url;
+            let trackN = document.createElement('div');
+            trackN.innerText = playL.tracks[i].name;
+            trackN.setAttribute('class', 'grid-item-playlist')
+            let artistN = document.createElement('div');
+            artistN.innerText = playL.tracks[i].artists[0].name;
+            artistN.setAttribute('class', 'grid-item-playlist')
+            let iframeSample = "<iframe style='width:120px;height:58px;' frameborder='0' src='" + trackSample + "'></iframe>"
+            let add2PLBtn = "<button type='button'><i class='fa fa-plus'></i>&nbsp;&nbsp;Add to playlist</button>"
+            let buttonsDiv = document.createElement('div');
+            if (playL.tracks[i].preview_url !== null) {
+                buttonsDiv.innerHTML += iframeSample;
+            } else {
+                buttonsDiv.innerText += 'Preview unvailable'
+            }
+            buttonsDiv.innerHTML += add2PLBtn;
+            buttonsDiv.setAttribute('class', 'grid-item-playlist')
+            var resultsGrid = document.querySelector('.grid-container-playlist')
+            resultsGrid.appendChild(trackN);
+            resultsGrid.appendChild(artistN);
+            resultsGrid.appendChild(buttonsDiv);
         }
-        buttonsDiv.innerHTML += add2PLBtn;
-        buttonsDiv.setAttribute('class', 'grid-item-playlist')
-
-        var resultsGrid = document.querySelector('.grid-container-playlist')
-        resultsGrid.appendChild(trackN);
-        resultsGrid.appendChild(artistN);
-        resultsGrid.appendChild(buttonsDiv);
-
+        addListeners()
     }
-
-    addListeners()
-
+    catch (error) {
+        return error;
+    }
 }
-
 showResults()
-
 // GET PLAYLISTS - CALL IMMEDIATELY. FUNCTION HAS TOKEN ISSUE - DASHBOARD TOKEN WORKS, OURS DOESNT - NEEDS FIX 
 // GET USER PROFILE
 function getUserPlaylists() {
-    var accessToken = JSON.parse(localStorage.getItem('oAuthToken')).access_token;
-    var url3 = "https://api.spotify.com/v1/me";
-    fetch(url3, {
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + accessToken
-        }
-    }).then(function (response) {
-        return response.json()
-    }).then(function (data) {
-        console.log(data);
-        localStorage.setItem('myDetails', JSON.stringify(data));
-    }).then(function () {
-        var userID = JSON.parse(localStorage.getItem('myDetails')).id;
-        console.log(userID);
-        var url4 = "https://api.spotify.com/v1/users/" + userID + "/playlists";
-        fetch(url4, {
+    try {
+        var accessToken = JSON.parse(localStorage.getItem('oAuthToken')).access_token;
+        var url3 = "https://api.spotify.com/v1/me";
+        fetch(url3, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + accessToken,
+                Authorization: "Bearer " + accessToken
             }
         }).then(function (response) {
-            console.log('passed');
             return response.json()
         }).then(function (data) {
-            localStorage.setItem('playlists', JSON.stringify(data))
+            console.log(data);
+            localStorage.setItem('myDetails', JSON.stringify(data));
         }).then(function () {
-            console.log('arrived at next function call')
-        }).then(function () {
-            console.log('arrived at pl select function call')
-            createPLSelector();
+            var userID = JSON.parse(localStorage.getItem('myDetails')).id;
+            console.log(userID);
+            var url4 = "https://api.spotify.com/v1/users/" + userID + "/playlists";
+            fetch(url4, {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + accessToken,
+                }
+            }).then(function (response) {
+                console.log('passed');
+                return response.json()
+            }).then(function (data) {
+                localStorage.setItem('playlists', JSON.stringify(data))
+            }).then(function () {
+                console.log('arrived at next function call')
+            }).then(function () {
+                console.log('arrived at pl select function call')
+                createPLSelector();
+            })
         })
-    })
-        .catch((error) => {
-            console.log('fail' + error)
-        })
+            .catch((error) => {
+                console.log('fail' + error)
+            })
+    }
+    catch (error) {
+        return error;
+    }
 }
 getUserPlaylists()
 

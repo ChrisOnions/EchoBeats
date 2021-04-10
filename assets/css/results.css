@@ -177,7 +177,7 @@ button:focus{
 
 
 /* SOCIALS DISPLAY STRUCTURE AND STYLING  */
-#socialLinksItem{
+#cocktail-container{
     padding: 30px 30px 30px 30px;
     border-radius: 15px;
     background-color:var(--cultured75);
@@ -376,7 +376,7 @@ footer{
     #searchCardItem{
         grid-column: 1 / span 2;
     }
-    #socialLinksItem{
+    #cocktail-container{
         grid-row: 3;
         grid-column: span 2;
     }
@@ -396,7 +396,7 @@ footer{
     #searchCardItem{
         grid-column: 1 / span 2;
     }
-    #socialLinksItem{
+    #cocktail-container{
         grid-row: 3;
         grid-column: span 2;
     }

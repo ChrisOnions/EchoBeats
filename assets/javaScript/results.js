@@ -318,7 +318,13 @@ function syncPlaylistLength(e) {
 }
 
 function getRandomCocktailApi() {
-    var cocktailContainer = document.getElementById("socialLinksItem");
+    var cocktailContainer = document.getElementById("cocktail-container");
+    // console.log(cocktailContainer.childNodes)
+    if (cocktailContainer.childNodes.length > 5) {
+        cocktailContainer.childNodes[7].remove();
+        cocktailContainer.childNodes[6].remove();
+        cocktailContainer.childNodes[5].remove();
+    }
     var requestUrl = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
     fetch(requestUrl)
       .then(function (response) {

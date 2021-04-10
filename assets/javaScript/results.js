@@ -22,8 +22,7 @@ var inScopeTrackID = '';
 var playlistModal = document.querySelector(".ModalP");
 var plModalContent = document.querySelector(".modal-contentP");
 var plModalClose = document.querySelector("#close1");
-
-
+var fetchCocktailButton = document.getElementById('fetch-cocktail-button');
 
 // Immediately called on each load of 'RESULTS' PAGE
 // THIS FUNCTION TAKES THE RESULTS AND MAKES AN EMBEDDED PLAYER FOR EACH TRACK AND MAKES A BUTTON WHICH ALLOWS ADDING IT TO PLAYLIST.
@@ -300,6 +299,34 @@ function getSeeds() {
     })
 }
 
+// Random cocktail function 
+function getRandomCocktailApi() {
+    console.log("click")
+    // updated var to target the socialLinksItem element ID on results html page
+    var cocktailContainer = document.getElementById("socialLinksItem");
+    var requestUrl = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+    fetch(requestUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        for (var i = 0; i < data.drinks.length; i++) {
+          var cocktailName = document.createElement('h3');
+          var glass = document.createElement("p");
+          var instructions = document.createElement("p")
+          var item = data.drinks[i]
+          cocktailName.textContent = item.strDrink
+          glass.textContent = item.strGlass
+          instructions.textContent = item.strInstructions
+          cocktailContainer.appendChild(cocktailName);
+          cocktailContainer.appendChild(glass);
+          cocktailContainer.appendChild(instructions);
+        }
+      });
+  }
+
+// Listener for the click on the random cocktail btn 
+  fetchCocktailButton.addEventListener('click', getRandomCocktailApi);
 
 
 //variables to link to playlist length range/number input elements

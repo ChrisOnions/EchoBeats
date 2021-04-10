@@ -6,7 +6,6 @@ var closeModle = document.getElementById("close");
 var modalInputFiled = document.getElementById("modalInputFiled");
 var modalSearchButton = document.getElementById("modalSearchButton")
 var randomButton = document.getElementById("randomButton");
-var fetchCocktailButton = document.getElementById('fetch-cocktail-button');
 
 const redirectUri = "https://chrisonions.github.io/webdevawesometeam/"
 const clientID = "85942e5b4e564e30b232074bd5b1417d"
@@ -16,7 +15,6 @@ const tokenHandlerUrl = "https://accounts.spotify.com/api/token"
 var url = ""
 var authCode = ""
 var criteria = '';
-// Console is suggesting there is an error here...Unexpected end of JSON input?
 var oAuthToken = JSON.parse(window.localStorage.getItem('oAuthToken'));
 var track = document.querySelector("#track");
 var artist = document.querySelector("#artist");
@@ -191,40 +189,6 @@ function getSeeds() {
     return 'failed';
   })
 }
-
-// Random free cocktail API url: // https://www.thecocktaildb.com/api/json/v1/1/random.php
-// Function to help generate random concktail
-function getRandomCocktailApi() {
-  console.log("click")
-  var requestUrl = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
-
-  fetch(requestUrl)
-    .then(function (response) {
-      console.log(response.jsa)
-      return response.json();
-    })
-    .then(function (data) {
-      for (var i = 0; i < data.drinks.length; i++) {
-        var cocktailName = document.createElement('h3');
-        var glass = document.createElement("p");
-        var instructions = document.createElement("p")
-
-        var item = data.drinks[i]
-
-        cocktailName.textContent = item.strDrink
-        glass.textContent = item.strGlass
-        instructions.textContent = item.strInstructions
-
-        var cocktailContainer = document.getElementById("cocktailContainer");
-        cocktailContainer.appendChild(cocktailName);
-        cocktailContainer.appendChild(glass);
-        cocktailContainer.appendChild(instructions);
-      }
-    });
-}
-
-// listener for the click on the get random cocktail btn 
-fetchCocktailButton.addEventListener('click', getRandomCocktailApi);
 
 // RESULTS PAGE:
 

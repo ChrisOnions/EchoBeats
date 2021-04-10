@@ -24,8 +24,6 @@ var plModalContent = document.querySelector(".modal-contentP");
 var plModalClose = document.querySelector("#close1");
 var fetchCocktailButton = document.getElementById('fetch-cocktail-button');
 
-
-
 // Immediately called on each load of 'RESULTS' PAGE
 // THIS FUNCTION TAKES THE RESULTS AND MAKES AN EMBEDDED PLAYER FOR EACH TRACK AND MAKES A BUTTON WHICH ALLOWS ADDING IT TO PLAYLIST.
 
@@ -301,8 +299,6 @@ function getSeeds() {
     })
 }
 
-
-
 //variables to link to playlist length range/number input elements
 var playlistLengthNumber = document.querySelector('#playlistLengthNumber');
 var playlistLengthRange = document.querySelector('#playlistLengthRange');
@@ -318,7 +314,13 @@ function syncPlaylistLength(e) {
 }
 
 function getRandomCocktailApi() {
-    var cocktailContainer = document.getElementById("socialLinksItem");
+    var cocktailContainer = document.getElementById("cocktail-container");
+    // console.log(cocktailContainer.childNodes)
+    if (cocktailContainer.childNodes.length > 5) {
+        cocktailContainer.childNodes[7].remove();
+        cocktailContainer.childNodes[6].remove();
+        cocktailContainer.childNodes[5].remove();
+    }
     var requestUrl = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
     fetch(requestUrl)
       .then(function (response) {
@@ -336,8 +338,9 @@ function getRandomCocktailApi() {
           cocktailContainer.appendChild(cocktailName);
           cocktailContainer.appendChild(glass);
           cocktailContainer.appendChild(instructions);
+        //   console.log(cocktailContainer.childNodes)
         }
       });
   }
 
-  fetchCocktailButton.addEventListener('click', getRandomCocktailApi);
+fetchCocktailButton.addEventListener('click', getRandomCocktailApi);

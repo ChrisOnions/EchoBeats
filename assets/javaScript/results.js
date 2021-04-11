@@ -95,8 +95,8 @@ showResults()
 // Called immediately upon arrival, retrieves the logged in users user ID and then fetches their playlists 
 function getUserPlaylists() {
     var accessToken = JSON.parse(localStorage.getItem('oAuthToken')).access_token;
-    var url3 = "https://api.spotify.com/v1/me";
-    fetch(url3, {
+
+    fetch("https://api.spotify.com/v1/me", {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -110,8 +110,8 @@ function getUserPlaylists() {
     }).then(function () {
         var userID = JSON.parse(localStorage.getItem('myDetails')).id;
         console.log(userID);
-        var url4 = "https://api.spotify.com/v1/users/" + userID + "/playlists";
-        fetch(url4, {
+
+        fetch("https://api.spotify.com/v1/users/" + userID + "/playlists", {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
@@ -172,9 +172,9 @@ function showPLSelector(a) {
 function add2ExistingPL() {
     var accessToken = JSON.parse(localStorage.getItem('oAuthToken')).access_token;
     var finalTrackID = "spotify%3Atrack%3A" + inScopeTrackID;
-    var url5 = "https://api.spotify.com/v1/playlists/" + inScopeplaylistID + "/tracks?uris=" + finalTrackID;
 
-    fetch(url5, {
+
+    fetch("https://api.spotify.com/v1/playlists/" + inScopeplaylistID + "/tracks?uris=" + finalTrackID, {
         headers: {
             Accept: "application/json",
             Authorization: "Bearer " + accessToken
@@ -263,9 +263,7 @@ function getSeeds() {
     var accessToken = JSON.parse(localStorage.getItem('oAuthToken')).access_token;
     var type = 'track'
 
-    var url = "https://api.spotify.com/v1/search?q=" + criteria + "&type=" + type + "&limit=1";
-
-    fetch(url, {
+    fetch("https://api.spotify.com/v1/search?q=" + criteria + "&type=" + type + "&limit=1", {
         headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + accessToken
@@ -319,8 +317,7 @@ function getRandomCocktailApi() {
         cocktailContainer.childNodes[6].remove();
         cocktailContainer.childNodes[5].remove();
     }
-    var requestUrl = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
-    fetch(requestUrl)
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
         .then(function (response) {
             return response.json();
         })

@@ -81,8 +81,7 @@ modalCloseTag.onclick = function () {
 // This runs at the page load or refresh to test token (if it exists) and get a new one if it doesnt
 function tokenValidation() {
   try {
-    var url = "https://api.spotify.com/v1/search?q=look&type=track&limit=1";
-    fetch(url, {
+    fetch("https://api.spotify.com/v1/search?q=look&type=track&limit=1", {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + oAuthToken.access_token
@@ -205,10 +204,7 @@ function getSeeds() {
   var accessToken = JSON.parse(localStorage.getItem('oAuthToken')).access_token;
   var type = 'track'
 
-  var url = "https://api.spotify.com/v1/search?q=" + criteria + "&type=" + type + "&limit=1";
-
-
-  fetch(url, {
+  fetch("https://api.spotify.com/v1/search?q=" + criteria + "&type=" + type + "&limit=1", {
     headers: {
       "Content-Type": "application/json",
       "Authorization": "Bearer " + accessToken
@@ -223,8 +219,7 @@ function getSeeds() {
   }).then(function (data) {
     var artist = data.tracks.items[0].artists[0].id
     var track = data.tracks.items[0].id
-    var url2 = "https://api.spotify.com/v1/recommendations?limit=" + plLength + "&market=AU&seed_artists=" + artist + "&seed_tracks=" + track + "&min_popularity=50";
-    fetch(url2, {
+    fetch("https://api.spotify.com/v1/recommendations?limit=" + plLength + "&market=AU&seed_artists=" + artist + "&seed_tracks=" + track + "&min_popularity=50", {
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + accessToken
@@ -247,8 +242,6 @@ function getSeeds() {
     return 'failed';
   })
 }
-
-// *****removed the cocktail api from here, it is only needed on results page. 
 
 //variables to link to playlist length range/number input elements
 var playlistLengthNumber = document.querySelector('#playlistLengthNumber');

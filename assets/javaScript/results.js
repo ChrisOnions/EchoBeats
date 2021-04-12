@@ -57,7 +57,7 @@ function showResults() {
             artistN.innerText = playL.tracks[i].artists[0].name;
             artistN.setAttribute('class', 'grid-item-playlist')
 
-            let iframeSample = "<iframe style='width:120px;height:58px;' frameborder='0' src='" + trackSample + "'></iframe>"
+            let iframeSample = "<audio control style='width:120px;height:58px;' frameborder='0' src='" + trackSample + "'></audio>"
             let add2PLBtn = "<button type='button'><i class='fa fa-plus'></i>&nbsp;&nbsp;Add to playlist</button>"
 
 

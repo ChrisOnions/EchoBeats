@@ -127,7 +127,10 @@ function showResults() {
                 previewDiv.appendChild(audioEl);
                 playlistCard.appendChild(previewDiv);
             } else {
-                previewDiv.innerText += 'Preview unvailable';
+                let noPreview = document.createElement('div');
+                noPreview.setAttribute('class', 'noPreview');
+                noPreview.innerText = 'Preview unvailable';
+                playlistCard.appendChild(previewDiv);
             }
 
             // creating a div to hold playlist button and appending it to the playlist card

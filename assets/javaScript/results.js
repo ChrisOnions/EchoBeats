@@ -126,7 +126,10 @@ function showResults() {
                 previewDiv.appendChild(audioEl);
                 playlistCard.appendChild(previewDiv);
             } else {
-                previewDiv.innerText += 'Preview unvailable';
+                let noPreview = document.createElement('div');
+                noPreview.setAttribute('class', 'noPreview');
+                noPreview.innerText = 'Preview unvailable';
+                playlistCard.appendChild(previewDiv);
             }
 
             // creating a div to hold playlist button and appending it to the playlist card
@@ -372,8 +375,7 @@ function getRandomCocktailApi() {
             return response.json();
         })
         .then(function (data) {
-            data.drinks.forEach(function(item)
-            {
+            data.drinks.forEach(function (item) {
                 var cocktailName = document.createElement('h3');
                 var glass = document.createElement("p");
                 var instructions = document.createElement("p")

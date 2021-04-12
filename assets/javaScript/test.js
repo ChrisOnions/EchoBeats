@@ -146,16 +146,16 @@ getUserPlaylists()
 // triggered after playlists have been retrieved by the 'getUserPlaylists' function (line 101)
 function createPLSelector(playlist) {
     playlistsA.items.forEach(function (item) {
-        let itemDiv = document.createElement('div');
-        itemDiv.setAttribute('class', 'plItem');
-        itemDiv.innerText = item.name;
-        itemDiv.addEventListener('click', function (e) {
+        let item = document.createElement('div');
+        item.setAttribute('class', 'plItem');
+        item.innerText = item.name;
+        item.addEventListener('click', function (e) {
             e.preventDefault();
             inScopeplaylistID = item.id;
             playlistModal.style.display = "none";
             add2ExistingPL();
         })
-        plModalContent.appendChild(itemDiv)
+        plModalContent.appendChild(item)
     })
 }
 
@@ -325,16 +325,21 @@ function getRandomCocktailApi() {
         .then(function (data) {
             data.drinks.forEach(function(item)
             {
-                var cocktailName = document.createElement('h3');
-                var glass = document.createElement("p");
-                var instructions = document.createElement("p")
-                cocktailName.textContent = item.strDrink
-                glass.textContent = item.strGlass
-                instructions.textContent = item.strInstructions
-                cocktailContainer.appendChild(cocktailName);
-                cocktailContainer.appendChild(glass);
-                cocktailContainer.appendChild(instructions);
+                   console.log(item) 
             });
+            
+            // for (var i = 0; i < data.drinks.length; i++) {
+            //     var cocktailName = document.createElement('h3');
+            //     var glass = document.createElement("p");
+            //     var instructions = document.createElement("p")
+            //     var item = data.drinks[i]
+            //     cocktailName.textContent = item.strDrink
+            //     glass.textContent = item.strGlass
+            //     instructions.textContent = item.strInstructions
+            //     cocktailContainer.appendChild(cocktailName);
+            //     cocktailContainer.appendChild(glass);
+            //     cocktailContainer.appendChild(instructions);
+            // }
         });
 }
 

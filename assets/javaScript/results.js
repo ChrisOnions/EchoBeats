@@ -142,7 +142,7 @@ function showResults() {
             resultsGrid.appendChild(playlistCard);
 
         }
-        // Calls function to add listeners over the added buttons
+        // Calls function to add listeners over the added buttons.
         addListeners()
     }
     // Catches the error if try was unsucessful

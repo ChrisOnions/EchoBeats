@@ -101,6 +101,7 @@ function showResults() {
 
             let albumCov = document.createElement('img');
             albumCov.setAttribute('src', playL.tracks[i].album.images[1].url);
+            albumCov.setAttribute('class', 'album-cover');
             playlistCard.appendChild(albumCov);
 
             let trackN = document.createElement('h3')

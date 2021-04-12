@@ -200,6 +200,12 @@ button:focus{
 .grid-item-playlist{
     align-self: center;
 }
+
+.album-cover{
+    width: 200px;
+    height: 200px;
+}
+
 #playlistTitle{
     grid-column: 1 / span 3;
     font-family: nimbus-sans-extended, sans-serif;

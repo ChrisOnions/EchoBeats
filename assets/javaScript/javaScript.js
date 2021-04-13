@@ -76,46 +76,18 @@ modalCloseTag.onclick = function () {
 }
 
 // ===== CHECK for VALID TOKEN ====//
-// This runs at the page load or refresh to test token (if it exists) and get a new one if it doesnt
+// This runs at the page load or refresh to test token (if it exists) and get a new one if it doesnt. 
+//If refreshToken request fails, the refreshToken function will delete the old token and direct them down the login path to retrieve a new one.
 
 function tokenValidation() {
   try {         // lets see if there is a token from a previous login in local storage
     let tokenCheck = oAuthToken.access_token;
-    console.log(tokenCheck + ' token exists -validating');
+    refreshToken();
   }
-  catch (error) {    // if there is not then lets check if they are logged in
-    if (authCode == undefined || authCode == null || authCode == "") {
-      console.log('arrived at bad authcode - LOG IN');
-      modalTokenError.style.display = 'block';
-      return 'nope';
-    }
-    else {
-      console.log('authcode exists - exchanging authcode for token');
-      getToken(); // get them a token if they logged in
-    }
-  }
-  //The token does exist so lets validate it
-  try {
-    var token = JSON.parse(window.localStorage.getItem('token'));
-    var url = "https://api.spotify.com/v1/search?q=speak&type=track&limit=1";
-    fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + token.access_token
-      }
-    }).then(function (response) {
-      if (response.status >= 200 && response.status < 300) {
-        console.log('token OK');
-        authCode = 'already logged in';
-        return response.statusText;
-      }
-      else {   // bad token so refresh the token
-        refreshToken();
-      }
-    })
-  }
-  catch {
-    refreshToken()
+  catch (error) {    // if there is no then lets check if they are logged in, if no, ask for log in, if yes, then exchange authcode for token
+    var loggedIn = (authCode == undefined || authCode == null || authCode == "") ?
+      (console.log('arrived at bad authcode - LOG IN'), modalTokenError.style.display = 'block') :
+      (console.log('authcode exists - exchanging authcode for token'), getToken()); // get them a token if they logged in
   }
 }
 tokenValidation()
@@ -254,12 +226,11 @@ function getSeeds(searchCriteria) {
             return response.json();
           }
           else {
-            console.log('ERROR2'); //suspect this will be a rare event, no handling yet
+            console.log('ERROR');
             throw Error(response.statusText);
           }
         }).then(function (data) {
           localStorage.setItem('recommendations', JSON.stringify(data))
-          console.log('end get recommendation flow');
         }).then(function () {
           window.location.href = "https://chrisonions.github.io/webdevawesometeam/results"
         })
